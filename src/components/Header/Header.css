@@ -1,0 +1,7 @@
+.sub-menu {
+  display: none;
+}
+
+.submenu-active .sub-menu {
+  display: block;
+}
