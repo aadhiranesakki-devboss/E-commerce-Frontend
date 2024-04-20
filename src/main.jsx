@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./index.css";
 
@@ -23,60 +23,28 @@ import { Auth } from "./components/Authentication/Auth.jsx";
 import { Logout } from "./components/Authentication/Logout.jsx";
 import { AddProduct } from "./pages/AddProduct.jsx";
 
-const routes = createBrowserRouter([
-  {
-    path: "/",
-    element: <Homepage />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/shop",
-    element: <Products />,
-  },
-  {
-    path: "/shop/:id",
-    element: <SingleProduct />,
-  },
-  {
-    path: "/checkout",
-    element: <Checkout />,
-  },
-  {
-    path: "/confirmation",
-    element: <Confirmation />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/mystore",
-    element: <MyStore />,
-  },
-  {
-    path: "/support",
-    element: <Support />,
-  },
-  {
-    path: "/logout",
-    element: <Logout />,
-  },
-  {
-    path: "/addProduct",
-    element: <AddProduct />,
-  },
-]);
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Auth>
     <DatabaseProvider>
       <CartProvider>
         <CheckoutProvider>
-          <RouterProvider router={routes} />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/shop" element={<Products />} >
+                <Route path=":id" element={<SingleProduct />} />
+              </Route>
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/confirmation" element={<Confirmation />} />
+              <Route path="/mystore" element={<MyStore />} />
+              <Route path="/addProduct" element={<AddProduct />} />
+              <Route path="*" element={<NotFoundPage />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/logout" element={<Logout />} />
+            </Routes>
+          </BrowserRouter>
         </CheckoutProvider>
       </CartProvider>
     </DatabaseProvider>
